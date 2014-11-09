@@ -1,30 +1,47 @@
-var http = require('http'),
-    httpProxy = require('http-proxy');
+var Promise = require('bluebird');
+var connect = require('connect');
+var http = require('http');
+var request = Promise.promisify(require('request'));
 
-//
-// Create a proxy server with custom application logic
-//
-var proxy = httpProxy.createProxyServer({});
+var Timer = require('./timer');
+var transform = require('./transform');
 
-// To modify the proxy connection before data is sent, you can listen
-// for the 'proxyReq' event. When the event is fired, you will receive
-// the following arguments:
-// (http.ClientRequest proxyReq, http.IncomingMessage req,
-//  http.ServerResponse res, Object options). This mechanism is useful when
-// you need to modify the proxy request before the proxy connection
-// is made to the target.
-//
-proxy.on('proxyReq', function(proxyReq, req, res, options) {
-  proxyReq.setHeader('X-Special-Proxy-Header', 'foobar');
+
+var API_URL = 'http://data.itsfactory.fi/siriaccess/vm/json';
+var LOOP_INTERVAL = 1000;
+
+
+var app = connect();
+var state = {};
+
+function fetch() {
+    return request({json:true, url: API_URL})
+    .then(function(response, body) {
+        console.log('Fetching data from API');
+
+        var response = response[0];
+        if (response.statusCode === 200) {
+            console.log('Got 200 OK response');
+            state.busData = transform(response.body);
+        } else {
+            throw new Error("Response was not OK. Status code: " + response.statusCode);
+        }
+    }).catch(function(err) {
+        console.error('Error while fetching data from API');
+        console.error(err);
+    });
+}
+
+var timer = new Timer(fetch, {
+    interval: LOOP_INTERVAL
+});
+timer.start();
+
+app.use(function(req, res) {
+    console.log('Serve cached content');
+    res.end(JSON.stringify(state.busData, null, 2));
 });
 
-var server = http.createServer(function(req, res) {
-  // You can define here your custom logic to handle the request
-  // and then proxy the request.
-  proxy.web(req, res, {
-    target: 'http://127.0.0.1:5060'
-  });
-});
 
-console.log("listening on port 5050")
-server.listen(5050);
+var server = http.createServer(app);
+server.listen(8080);
