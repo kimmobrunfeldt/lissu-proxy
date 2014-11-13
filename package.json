@@ -5,6 +5,7 @@
   "description": "Proxy for Lissu API",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +21,7 @@
   "dependencies": {
     "bluebird": "^2.3.11",
     "connect": "^3.3.2",
+    "moment": "^2.8.3",
     "request": "^2.47.0"
   }
 }
