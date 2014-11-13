@@ -43,3 +43,12 @@ app.use(function(req, res) {
 
 var server = http.createServer(app);
 server.listen(config.port);
+
+// Handle SIGTERM gracefully. Heroku will send this before idle.
+process.on('SIGTERM', function() {
+    console.log('SIGTERM received');
+    console.log('Closing server');
+    server.close(function() {
+        console.log('Server closed');
+    });
+});
