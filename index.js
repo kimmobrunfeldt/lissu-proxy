@@ -5,6 +5,7 @@ var request = Promise.promisify(require('request'));
 
 var Timer = require('./timer');
 var transform = require('./transform');
+var config = require('./config');
 
 
 var API_URL = 'http://data.itsfactory.fi/siriaccess/vm/json';
@@ -41,4 +42,4 @@ app.use(function(req, res) {
 
 
 var server = http.createServer(app);
-server.listen(8080);
+server.listen(config.port);
