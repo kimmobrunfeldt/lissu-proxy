@@ -1,5 +1,6 @@
 var Promise = require('bluebird');
 var express = require('express');
+var cors = require('cors');
 var http = require('http');
 var request = Promise.promisify(require('request'));
 var iconvlite = require('iconv-lite');
@@ -37,6 +38,8 @@ var timer = new Timer(fetch, {
 });
 timer.start();
 
+
+app.use(cors());
 app.set('json spaces', 2);
 app.get('/', function(req, res) {
     res.json(state.busData);
