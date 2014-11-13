@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "debug": "node-debug -p 9000 --debug-brk index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +22,8 @@
   "dependencies": {
     "bluebird": "^2.3.11",
     "connect": "^3.3.2",
+    "express": "^4.10.2",
+    "iconv-lite": "^0.4.4",
     "moment": "^2.8.3",
     "request": "^2.47.0"
   }
