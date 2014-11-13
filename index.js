@@ -17,11 +17,9 @@ var state = {};
 function fetch() {
     return request({json:true, url: API_URL})
     .then(function(response, body) {
-        console.log('Fetching data from API');
-
         var response = response[0];
+
         if (response.statusCode === 200) {
-            console.log('Got 200 OK response');
             state.busData = transform(response.body);
         } else {
             throw new Error("Response was not OK. Status code: " + response.statusCode);
@@ -38,7 +36,6 @@ var timer = new Timer(fetch, {
 timer.start();
 
 app.use(function(req, res) {
-    console.log('Serve cached content');
     res.end(JSON.stringify(state.busData, null, 2));
 });
 
