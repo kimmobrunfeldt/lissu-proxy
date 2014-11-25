@@ -14,7 +14,9 @@ var API_URL = 'http://data.itsfactory.fi/siriaccess/vm/json';
 var LOOP_INTERVAL = 1000;
 
 var app = express();
-var state = {};
+var state = {
+    error: false
+};
 
 function fetch() {
     return request({url: API_URL})
@@ -22,11 +24,14 @@ function fetch() {
         var response = response[0];
 
         if (response.statusCode === 200) {
+            state.error = false;
             state.busData = transform(JSON.parse(response.body));
         } else {
+            state.error = true;
             throw new Error("Response was not OK. Status code: " + response.statusCode);
         }
     }).catch(function(err) {
+        state.error = true;
         console.error('Error while fetching data from API');
         console.error(err);
         console.error(err.stack);
@@ -42,7 +47,11 @@ timer.start();
 app.use(cors());
 app.set('json spaces', 2);
 app.get('/', function(req, res) {
-    res.json(state.busData);
+    if (state.error) {
+        res.json({error: true, busData:{}});
+    } else {
+        res.json(state.busData);
+    }
 });
 
 
