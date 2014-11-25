@@ -17,7 +17,7 @@ function transformVehicle(vehicle) {
         line: journey.LineRef.value,
         latitude: journey.VehicleLocation.Latitude,
         longitude: journey.VehicleLocation.Longitude,
-        bearing: journey.Bearing,
+        rotation: journey.Bearing,
         origin: journey.OriginName.value,
         destination: journey.DestinationName.value,
         operator: journey.OperatorRef.value,

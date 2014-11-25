@@ -12,7 +12,7 @@ There is some documentation of original Lissu SIRI API in [ITS Factory's page](h
 
 ### Response
 
-```json
+```
 {
     "vehicles": [
         [Vehicle data object],
@@ -29,10 +29,10 @@ Parameter | Type | Description
 **id**               | *String*  |  Bus identifier. Example: `TKL_34`
 **line**             | *String*  |  Bus line name. Example: `90M`
 **latitude**         | *Number*  |  Latitude coordinate. Example: `61.5192917`
-**longitude**        | *Number*  |  Latitude coordinate. Example: `23.6257467`
-**bearing**          | *Number*  |  Rotation of bus. Example: `12`.
-**origin**           | *String*  |  Origin of bus route. Example: `Hermia`
+**longitude**        | *Number*  |  Longitude coordinate. Example: `23.6257467`
+**rotation**         | *Number*  |  Rotation of a bus. Example: `12`.
+**origin**           | *String*  |  Origin of a bus route. Example: `Hermia`
 **destination**      | *String*  |  Destination of bus route. Example: `Särkitie`
 **operator**         | *String*  |  Bus operator name. Example: `TKL` or `Paunu`.
-**direction**        | *String*  |  No idea.. Example: `2`
+**direction**        | *String*  |  Determines which direction bus is headed to. Example: `2`
 **validUntil**       | *Date*    |  Data is valid until this date time.. I guess?. Example: `2014-11-13T20:56:34.007Z`
