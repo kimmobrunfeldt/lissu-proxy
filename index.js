@@ -3,15 +3,11 @@ var express = require('express');
 var cors = require('cors');
 var http = require('http');
 var request = Promise.promisify(require('request'));
-var iconvlite = require('iconv-lite');
 
 var Timer = require('./timer');
 var transform = require('./transform');
 var config = require('./config');
 
-
-var API_URL = 'http://data.itsfactory.fi/siriaccess/vm/json';
-var LOOP_INTERVAL = 1000;
 
 var app = express();
 var state = {
@@ -19,7 +15,7 @@ var state = {
 };
 
 function fetch() {
-    return request({url: API_URL})
+    return request({url: config.apiUrl})
     .then(function(response, body) {
         var response = response[0];
 
@@ -39,7 +35,7 @@ function fetch() {
 }
 
 var timer = new Timer(fetch, {
-    interval: LOOP_INTERVAL
+    interval: config.loopInterval
 });
 timer.start();
 

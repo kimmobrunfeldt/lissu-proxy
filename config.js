@@ -4,5 +4,7 @@ var productionPort = process.env.PORT || 80;
 var port = production ? productionPort : 8080;
 
 module.exports = {
-    port: port
+    port: port,
+    apiUrl: 'http://data.itsfactory.fi/siriaccess/vm/json',
+    loopInterval: 1000
 };
