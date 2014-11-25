@@ -10,6 +10,8 @@ convenient format.
 This proxy API returns data in JSON format. Original API is here: http://data.itsfactory.fi/siriaccess/vm/json
 There is some documentation of original Lissu SIRI API in [ITS Factory's page](http://wiki.itsfactory.fi/index.php/ITS_Factory_Developer_Wiki) under *Public Transport*.
 
+This proxy API fetches newest data from original API in 1000ms interval.
+
 ### Response format
 
 ```
@@ -36,3 +38,15 @@ Parameter | Type | Description
 **operator**         | *String*  |  Bus operator name. Example: `TKL` or `Paunu`.
 **direction**        | *String*  |  Determines which direction bus is headed to. Example: `2`
 **validUntil**       | *Date*    |  Data is valid until this date time.. I guess?. Example: `2014-11-13T20:56:34.007Z`
+
+
+### Errors
+
+If error occured when fetching vehicle data from original API, response contains *error* key:
+
+```json
+{
+    "error": true,
+    "busData": {}
+}
+```
