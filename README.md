@@ -10,7 +10,7 @@ convenient format.
 This proxy API returns data in JSON format. Original API is here: http://data.itsfactory.fi/siriaccess/vm/json
 There is some documentation of original Lissu SIRI API in [ITS Factory's page](http://wiki.itsfactory.fi/index.php/ITS_Factory_Developer_Wiki) under *Public Transport*.
 
-### Response
+### Response format
 
 ```
 {
@@ -30,7 +30,7 @@ Parameter | Type | Description
 **line**             | *String*  |  Bus line name. Example: `90M`
 **latitude**         | *Number*  |  Latitude coordinate. Example: `61.5192917`
 **longitude**        | *Number*  |  Longitude coordinate. Example: `23.6257467`
-**rotation**         | *Number*  |  Rotation of a bus. Example: `12`.
+**rotation**         | *Number*  |  Rotation of a bus. *0* to *360*. *0* means the bus is stopped. East would be *90*. Example: `12`.
 **origin**           | *String*  |  Origin of a bus route. Example: `Hermia`
 **destination**      | *String*  |  Destination of bus route. Example: `Särkitie`
 **operator**         | *String*  |  Bus operator name. Example: `TKL` or `Paunu`.
