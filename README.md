@@ -2,8 +2,10 @@
 
 Lissu is a service where you can see real time locations of buses in Tampere.
 
-Original Lissu API doesn't handle load well. This proxy serves data from Lissu API in a more
-convenient format.
+This proxy doesn't do anything else than:
+
+* Handles load *(original doesn't)*
+* [Transforms](https://github.com/kimmobrunfeldt/lissu-proxy/blob/master/transform.js) response to a nicer format
 
 ## API
 
@@ -25,6 +27,8 @@ This proxy API fetches newest data from original API in 1000ms interval.
 ```
 
 ### Vehicle data
+
+The original API is quite undescriptive about the values, these are my findings about the data.
 
 Parameter | Type | Description
 --------- | ---- | -----------
