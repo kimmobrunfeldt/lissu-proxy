@@ -21,6 +21,7 @@
   "homepage": "https://github.com/kimmobrunfeldt/lissu-proxy",
   "dependencies": {
     "bluebird": "^2.3.11",
+    "compression": "^1.2.1",
     "connect": "^3.3.2",
     "cors": "^2.5.2",
     "express": "^4.10.2",

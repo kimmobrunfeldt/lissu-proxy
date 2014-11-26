@@ -1,5 +1,6 @@
 var Promise = require('bluebird');
 var express = require('express');
+var compression = require('compression');
 var cors = require('cors');
 var http = require('http');
 var request = Promise.promisify(require('request'));
@@ -8,8 +9,6 @@ var Timer = require('./timer');
 var transform = require('./transform');
 var config = require('./config');
 
-
-var app = express();
 var state = {
     error: false
 };
@@ -39,7 +38,11 @@ var timer = new Timer(fetch, {
 });
 timer.start();
 
-
+var app = express();
+app.use(compression({
+    // Compress everything over 10 bytes
+    threshold: 10
+}));
 app.use(cors());
 app.set('json spaces', 2);
 app.get('/', function(req, res) {
