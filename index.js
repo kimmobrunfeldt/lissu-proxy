@@ -28,6 +28,7 @@ function fetch() {
             var diffInMinutes = Math.abs(responseTime.diff(moment(), 'minutes'));
             if (diffInMinutes >= 60) {
                 state.error = true;
+                state.msg = 'Tampereen joukkoliikenteen järjestelmässä on häiriö.';
                 state.busData.vehicles = [];
                 console.error('Data is too old, diff in minutes:', diffInMinutes);
                 console.error(responseTime.unix());
@@ -58,7 +59,16 @@ app.use(cors());
 app.set('json spaces', 2);
 app.get('/', function(req, res) {
     if (state.error) {
-        res.json({error: true, busData:{}});
+        var response = {
+            error: true,
+            busData:{}
+        };
+
+        if (state.msg) {
+            response.msg = state.msg;
+        }
+
+        res.json(response);
     } else {
         res.json(state.busData);
     }
