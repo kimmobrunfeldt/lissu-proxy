@@ -5,6 +5,6 @@ var port = production ? productionPort : 9000;
 
 module.exports = {
     port: port,
-    apiUrl: 'http://data.itsfactory.fi/siriaccess/vm/json',
+    apiUrl: 'http://lissu.tampere.fi/ajax_servers/busLocations.php',
     loopInterval: 1000
 };

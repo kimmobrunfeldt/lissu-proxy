@@ -4,28 +4,22 @@ var moment = require('moment');
 // Original API url: http://data.itsfactory.fi/siriaccess/vm/json
 
 function transform(data) {
-    var vehicles = data.Siri.ServiceDelivery.VehicleMonitoringDelivery[0].VehicleActivity;
+    var vehicles = data;
 
     return {
         vehicles: vehicles.map(transformVehicle),
-        responseUnixTime: data.Siri.ServiceDelivery.ResponseTimestamp
+        responseUnixTime: (new Date()).getTime()
     };
 }
 
 function transformVehicle(vehicle) {
-    var journey = vehicle.MonitoredVehicleJourney;
-
     return {
-        id: journey.VehicleRef.value,
-        line: journey.LineRef.value,
-        latitude: journey.VehicleLocation.Latitude,
-        longitude: journey.VehicleLocation.Longitude,
-        rotation: journey.Bearing,
-        origin: journey.OriginName.value,
-        destination: journey.DestinationName.value,
-        operator: journey.OperatorRef.value,
-        direction: journey.DirectionRef.value,
-        validUntil: moment(vehicle.ValidUntilTime).toISOString()
+        id: vehicle.journeyId,
+        line: vehicle.lCode,
+        latitude: vehicle.y,
+        longitude: vehicle.x,
+        rotation: vehicle.bearing,
+        direction: vehicle.direction
     };
 }
 

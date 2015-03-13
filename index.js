@@ -15,7 +15,8 @@ var state = {
 };
 
 function fetch() {
-    return request({url: config.apiUrl})
+    var query = '?ts=' + (new Date()).getTime();
+    return request({url: config.apiUrl + query})
     .then(function(response, body) {
         var response = response[0];
 
