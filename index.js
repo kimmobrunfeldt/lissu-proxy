@@ -4,6 +4,7 @@ var compression = require('compression');
 var cors = require('cors');
 var http = require('http');
 var request = Promise.promisify(require('request'));
+var moment = require('moment');
 
 var Timer = require('./timer');
 var transform = require('./transform');
@@ -21,6 +22,16 @@ function fetch() {
         if (response.statusCode === 200) {
             state.error = false;
             state.busData = transform(JSON.parse(response.body));
+
+            // If response time is hour or more
+            var responseTime = moment(state.busData.responseUnixTime);
+            var diffInMinutes = Math.abs(responseTime.diff(moment(), 'minutes'));
+            if (diffInMinutes >= 60) {
+                state.error = true;
+                state.busData.vehicles = [];
+                console.error('Data is too old, diff in minutes:', diffInMinutes);
+                console.error(responseTime.unix());
+            }
         } else {
             state.error = true;
             throw new Error("Response was not OK. Status code: " + response.statusCode);

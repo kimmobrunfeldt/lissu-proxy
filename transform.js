@@ -7,7 +7,8 @@ function transform(data) {
     var vehicles = data.Siri.ServiceDelivery.VehicleMonitoringDelivery[0].VehicleActivity;
 
     return {
-        vehicles: vehicles.map(transformVehicle)
+        vehicles: vehicles.map(transformVehicle),
+        responseUnixTime: data.Siri.ServiceDelivery.ResponseTimestamp
     };
 }
 
