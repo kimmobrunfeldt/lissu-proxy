@@ -1,4 +1,4 @@
-var require('newrelic');
+require('newrelic');
 var Promise = require('bluebird');
 var express = require('express');
 var compression = require('compression');
