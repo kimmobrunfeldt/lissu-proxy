@@ -58,7 +58,6 @@ app.use(compression({
     threshold: 10
 }));
 app.use(cors());
-app.set('json spaces', 2);
 app.get('/', function(req, res) {
     if (state.error) {
         var response = {
