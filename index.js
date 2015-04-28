@@ -31,12 +31,12 @@ function fetch() {
             if (diffInMinutes >= 60) {
                 state.error = true;
                 state.msg = 'Tampereen joukkoliikenteen järjestelmässä on häiriö.';
-                state.busData.vehicles = [];
                 console.error('Data is too old, diff in minutes:', diffInMinutes);
                 console.error(responseTime.unix());
             }
         } else {
             state.error = true;
+            state.msg = 'Tampereen joukkoliikenteen järjestelmässä on häiriö.';
             throw new Error("Response was not OK. Status code: " + response.statusCode);
         }
     }).catch(function(err) {
@@ -61,8 +61,7 @@ app.use(cors());
 app.get('/', function(req, res) {
     if (state.error) {
         var response = {
-            error: true,
-            busData:{}
+            error: true
         };
 
         if (state.msg) {
