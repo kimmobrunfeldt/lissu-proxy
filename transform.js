@@ -19,7 +19,8 @@ function transformVehicle(vehicle) {
         latitude: vehicle.y,
         longitude: vehicle.x,
         rotation: vehicle.bearing,
-        direction: vehicle.direction
+        direction: vehicle.direction,
+        type: 'bus'
     };
 }
 
